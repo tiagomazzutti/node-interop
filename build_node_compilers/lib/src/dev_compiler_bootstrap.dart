@@ -59,7 +59,7 @@ https://github.com/dart-lang/build/blob/master/docs/faq.md#how-can-i-resolve-ski
 
   // Map from module name to module path for custom modules.
   var modulePaths = SplayTreeMap.of(
-      {'dart_sdk': r'packages/$sdk/dev_compiler/common/dart_sdk'});
+      {'dart_sdk': r'packages/$sdk/dev_compiler/kernel/common/dart_sdk'});
 
   for (var jsId in transitiveJsModules) {
     // Strip out the top level dir from the path for any module, and set it to
