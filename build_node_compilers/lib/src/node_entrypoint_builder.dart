@@ -16,7 +16,6 @@ const ddcBootstrapExtension = '.dart.bootstrap.js';
 const jsEntrypointExtension = '.dart.js';
 const jsEntrypointSourceMapExtension = '.dart.js.map';
 const digestsEntrypointExtension = '.digests';
-const configSrcExtension = '.yaml';
 
 /// Which compiler to use when compiling web entrypoints.
 enum WebCompiler {
@@ -88,24 +87,25 @@ class NodeEntrypointBuilder implements Builder {
       jsEntrypointSourceMapExtension,
       digestsEntrypointExtension,
     ],
-    '.src.yaml': [
-      configSrcExtension
-    ],
   };
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    var dartEntrypointId = buildStep.inputId;
-    var isAppEntrypoint = await _isAppEntryPoint(dartEntrypointId, buildStep);
-    if (!isAppEntrypoint) return;
-    if (webCompiler == WebCompiler.DartDevc) {
-      try {
-        await bootstrapDdc(buildStep);
-      } on MissingModulesException catch (e) {
-        log.severe('$e');
+    if (buildStep.inputId.extension == 'src.yaml') {
+      buildStep.inputId.changeExtension('').changeExtension('.yaml');
+    } else {
+      var dartEntrypointId = buildStep.inputId;
+      var isAppEntrypoint = await _isAppEntryPoint(dartEntrypointId, buildStep);
+      if (!isAppEntrypoint) return;
+      if (webCompiler == WebCompiler.DartDevc) {
+        try {
+          await bootstrapDdc(buildStep);
+        } on MissingModulesException catch (e) {
+          log.severe('$e');
+        }
+      } else if (webCompiler == WebCompiler.Dart2Js) {
+        await bootstrapDart2Js(buildStep, dart2JsArgs);
       }
-    } else if (webCompiler == WebCompiler.Dart2Js) {
-      await bootstrapDart2Js(buildStep, dart2JsArgs);
     }
   }
 }
