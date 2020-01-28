@@ -91,7 +91,7 @@ class NodeEntrypointBuilder implements Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    if (buildStep.inputId.extension == 'src.yaml') {
+    if (buildStep.inputId.extension == '.src.yaml') {
       buildStep.inputId.changeExtension('').changeExtension('.yaml');
     } else {
       var dartEntrypointId = buildStep.inputId;
