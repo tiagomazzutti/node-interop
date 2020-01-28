@@ -16,6 +16,7 @@ const ddcBootstrapExtension = '.dart.bootstrap.js';
 const jsEntrypointExtension = '.dart.js';
 const jsEntrypointSourceMapExtension = '.dart.js.map';
 const digestsEntrypointExtension = '.digests';
+const configSrcExtension = '.yaml';
 
 /// Which compiler to use when compiling web entrypoints.
 enum WebCompiler {
@@ -86,6 +87,9 @@ class NodeEntrypointBuilder implements Builder {
       jsEntrypointExtension,
       jsEntrypointSourceMapExtension,
       digestsEntrypointExtension,
+    ],
+    '.src.yaml': [
+      configSrcExtension
     ],
   };
 
