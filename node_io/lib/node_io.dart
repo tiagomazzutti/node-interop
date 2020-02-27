@@ -31,6 +31,7 @@ export 'src/internet_address.dart';
 export 'src/link.dart';
 export 'src/network_interface.dart';
 export 'src/platform.dart';
+export 'src/streams.dart';
 
 /// Get the global exit code for the current process.
 ///
